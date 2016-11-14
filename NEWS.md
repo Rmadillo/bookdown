@@ -1,10 +1,10 @@
-# CHANGES IN bookdown VERSION 0.2 (unreleased)
+# CHANGES IN bookdown VERSION 0.2
 
 ## NEW FEATURES
 
 - Added arguemnts `toc_unnumberred`, `toc_appendix`, `toc_bib`, and `quote_footer` to `pdf_book()`.
 
-- Added support for cross-referencing equations in multi-page HTML output and EPUB; see https://bookdown.org/yihui/bookdown/markdown-syntax.html for the syntax (thanks, @deleeuw, #85).
+- Added support for cross-referencing equations in multi-page HTML output and EPUB; see https://bookdown.org/yihui/bookdown/ for the syntax (thanks, @deleeuw, #85).
 
 - Rmd files can live in subdirectories if you use the Merge-and-Knit approach (the default), and they will be found if the configuration option `rmd_subdir` is true in `_bookdown.yml` (thanks, @leobuchignani, #205).
 
@@ -29,6 +29,8 @@
 - Math expressions does not appear in the table of contents when the output format is `gitbook` (thanks, @philomonk, #204).
 
 - Footnotes of multiple paragraphs are not displayed on the current page (thanks, @axitdn, #234).
+
+- The output format `pdf_document2()` also works with articles now when an R Markdown document contains bookdown-specific headers, such as parts or appendix headers (http://stackoverflow.com/q/40529798/559676).
 
 # CHANGES IN bookdown VERSION 0.1
 

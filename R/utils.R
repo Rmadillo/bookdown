@@ -79,16 +79,10 @@ get_base_format = function(format) {
 load_config = function() {
   if (length(opts$get('config')) == 0 && file.exists('_bookdown.yml')) {
     # store the book config
-    opts$set(config = yaml_utf8('_bookdown.yml'))
+    opts$set(config = yaml::yaml.load_file('_bookdown.yml'))
   }
   opts$get('config')
 }
-
-mark_utf8 = getFromNamespace('mark_utf8', 'rmarkdown')
-
-yaml_utf8 = function(x) mark_utf8(yaml::yaml.load(
-  enc2utf8(paste(readUTF8(x), collapse = '\n'))
-))
 
 book_filename = function(config = load_config(), fallback = TRUE) {
   if (is.character(config[['book_filename']])) {
@@ -483,13 +477,15 @@ html_or_latex = function(format) {
 }
 
 verify_rstudio_version = function() {
-  if (requireNamespace('rstudioapi', quietly = TRUE) && rstudioapi::isAvailable() &&
-      !rstudioapi::isAvailable('0.99.1200')) {
-    message(
-      'You are recommended to use a newer version of RStudio IDE to compile the book: ',
-      'https://www.rstudio.com/products/rstudio/download/preview/'
+  if (requireNamespace('rstudioapi', quietly = TRUE) && rstudioapi::isAvailable()) {
+    if (!rstudioapi::isAvailable('0.99.1200')) warning(
+      'Please install a newer version of the RStudio IDE: ',
+      'https://www.rstudio.com/products/rstudio/download/'
     )
-  }
+  } else if (!rmarkdown::pandoc_available('1.17.2')) warning(
+    "Please install or upgrade Pandoc to at least version 1.17.2; ",
+    "or if you are using RStudio, you can just install RStudio 1.0+."
+  )
 }
 
 str_trim = function(x) gsub('^\\s+|\\s+$', '', x)
